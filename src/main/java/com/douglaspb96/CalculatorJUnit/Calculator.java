@@ -1,47 +1,40 @@
 package com.douglaspb96.CalculatorJUnit;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 public class Calculator {
 	public int evaluate(String expression) {
-		int sum = 0;
+		String tokens[] = expression.split("(?<=\\+)|(?=\\+)|(?<=\\-)|(?=\\-)");
 		
-		String[] lista = expression.split("(?<=\\+)|(?=\\+)|(?<=\\-)|(?=\\-)");
-		//String[] l2 = expression.split("\\-");
-		try {
-			int i = 0;
-			while(i < lista.length) {
-				String valor = lista[i];
-				
-				//SE FOR NEGATIVO OU POSITIVO, ADICIONA O SINAL DO NUMERO
-				if(valor.equals("+") || valor.equals("-")) {
-					if(i+1 < lista.length) {
-						String valor2 = lista[i+1];
-						//VERIFICA SE O PROXIMO VALOR FOR UM SINAL. POR EXEMPLO: +-3
-						if(valor2.equals("+") || valor2.equals("-")) {
-							valor = valor2 + lista[i+2];
-							i+=3;
-						}else {
-							valor += valor2;
-							i+=2;
-						}
-					}
-				}else {
-					i++;
-				}
-				sum += Integer.parseInt(valor);
+		int primeiro = 0;
+		int result = 0;
+        
+		// Trata o sinal inicial
+		String aux = tokens[primeiro];
+		if (aux.equals("-")) {
+			System.out.println(aux);
+			primeiro++;
+			System.out.println(tokens[primeiro]);
+			result -= Integer.parseInt(tokens[primeiro]);
+			primeiro++;
+		}else if (aux.equals("+")) {
+			primeiro++;
+			result += Integer.parseInt(tokens[primeiro]);
+			primeiro++;
+		}else {
+			result += Integer.parseInt(aux);
+			primeiro++;
+		}
+		
+		// Trata a sequencia
+		for(int i=primeiro;i<tokens.length;i+=2) {
+			switch(tokens[i]) {
+			case "+":
+				result += Integer.parseInt(tokens[i+1]);
+				break;
+			case "-":
+				result -= Integer.parseInt(tokens[i+1]);
+				break;
 			}
-		}catch(NumberFormatException e) {
-			throw new InvalidExpressionException("Expressão inválida!");
-		}	
-		return sum;
-		/*
-		int sum = 0;
-		for (String summand : expression.split("(?<=\\+)|(?=\\+)|(?<=\\-)|(?=\\-)"))
-			sum += Integer.valueOf(summand);
-		return sum;
-		*/
+		}
+		return result;
 	}
 }

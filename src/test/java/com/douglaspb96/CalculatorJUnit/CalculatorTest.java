@@ -6,27 +6,73 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CalculatorTest {
-	private Calculator calculator;
-	
-	@Before
-	public void inicializa() {
-		this.calculator = new Calculator();
-	}
-	
 	@Test
-	public void calculatorVariasSomasTest() {
-		int resp = this.calculator.evaluate("5+3+2");
-		assertEquals(10,resp);
+	public void testEvaluateSomas() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("3+8+5+9");
+		assertEquals(25, resp); //
 	}
 
 	@Test
-	public void calculatorSoUmNumeroTest() {
-		int resp = this.calculator.evaluate("5");
-		assertEquals(5,resp);
+	public void testEvaluatePrimeiroNegativo() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("-3+8+5+9");
+		assertEquals(19, resp); //
+	}
+
+	@Test
+	public void testEvaluatePrimeiroPositivo() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("+3+8+5+9");
+		assertEquals(25, resp); //
+	}
+
+	@Test
+	public void testEvaluateSubtracoes() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("15-5-3-7-2");
+		assertEquals(-2, resp);
 	}
 	
-	@Test(expected=InvalidExpressionException.class)
-	public void testEvaluateExpressaoInvalida() {
-		int resp = this.calculator.evaluate("5+4a");
+	@Test
+	public void testEvaluateMisto() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("3+8-5+4-6");
+		assertEquals(4, resp);
+	}
+	
+	@Test
+	public void testEvaluateSoUmaOperacao() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("3+8");
+		assertEquals(11, resp);
+	}
+	
+	@Test
+	public void testEvaluateResultadoNegativo() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("3-8");
+		assertEquals(-5, resp);
+	}
+	
+	@Test
+	public void testEvaluateSoUmNumero() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("3");
+		assertEquals(3, resp);
+	}
+
+	@Test
+	public void testEvaluateSoUmNumeroNegativo() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("-3");
+		assertEquals(-3, resp);
+	}
+
+	@Test
+	public void testEvaluateSoUmNumeroPositivo() {
+		Calculator c = new Calculator();
+		int resp = c.evaluate("3");
+		assertEquals(3, resp);
 	}
 }
