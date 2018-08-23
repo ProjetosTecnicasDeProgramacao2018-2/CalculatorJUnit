@@ -8,6 +8,9 @@ public class App
 {
     public static void main( String[] args )
     {
+    	/* 
+    	 * OLOCO BIXO
+    	 * */
         Calculator c = new Calculator();
         try {
         	System.out.println("Soma: "+c.evaluate("-5+1+-2+--3"));
