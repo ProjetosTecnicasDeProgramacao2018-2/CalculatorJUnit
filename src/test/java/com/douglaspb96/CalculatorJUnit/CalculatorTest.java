@@ -24,4 +24,9 @@ public class CalculatorTest {
 		int resp = this.calculator.evaluate("5");
 		assertEquals(5,resp);
 	}
+	
+	@Test(expected=InvalidExpressionException.class)
+	public void testEvaluateExpressaoInvalida() {
+		int resp = this.calculator.evaluate("5+4a");
+	}
 }

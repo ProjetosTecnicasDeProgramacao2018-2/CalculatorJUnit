@@ -10,30 +10,32 @@ public class Calculator {
 		
 		String[] lista = expression.split("(?<=\\+)|(?=\\+)|(?<=\\-)|(?=\\-)");
 		//String[] l2 = expression.split("\\-");
-		
-		int i = 0;
-		while(i < lista.length) {
-			String valor = lista[i];
-			
-			if(valor.equals("+") || valor.equals("-")) {
-				if(i+1 < lista.length) {
-					String valor2 = lista[i+1];
-					if(valor2.equals("+") || valor2.equals("-")) {
-						valor = valor2 + lista[i+2];
-						i+=3;
-					}else {
-						valor += valor2;
-						i+=2;
+		try {
+			int i = 0;
+			while(i < lista.length) {
+				String valor = lista[i];
+				
+				//SE FOR NEGATIVO OU POSITIVO, ADICIONA O SINAL DO NUMERO
+				if(valor.equals("+") || valor.equals("-")) {
+					if(i+1 < lista.length) {
+						String valor2 = lista[i+1];
+						//VERIFICA SE O PROXIMO VALOR FOR UM SINAL. POR EXEMPLO: +-3
+						if(valor2.equals("+") || valor2.equals("-")) {
+							valor = valor2 + lista[i+2];
+							i+=3;
+						}else {
+							valor += valor2;
+							i+=2;
+						}
 					}
+				}else {
+					i++;
 				}
-			}else {
-				i++;
+				sum += Integer.parseInt(valor);
 			}
-			sum += Integer.parseInt(valor);
-			
-			System.out.println(valor);
-		}
-		
+		}catch(NumberFormatException e) {
+			throw new InvalidExpressionException("Expressão inválida!");
+		}	
 		return sum;
 		/*
 		int sum = 0;

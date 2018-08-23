@@ -9,6 +9,10 @@ public class App
     public static void main( String[] args )
     {
         Calculator c = new Calculator();
-        System.out.println("Soma: "+c.evaluate("-5+1+2+-3"));
+        try {
+        	System.out.println("Soma: "+c.evaluate("-5+1+-2+--3"));
+        }catch(RuntimeException e) {
+        	System.out.println(e.getMessage());
+        }
     }
 }
