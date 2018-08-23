@@ -8,6 +8,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        Calculator c = new Calculator();
+        System.out.println("Soma: "+c.evaluate("-5+1+2+-3"));
     }
 }
